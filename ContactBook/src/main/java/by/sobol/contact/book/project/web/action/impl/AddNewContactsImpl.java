@@ -22,21 +22,15 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 
 	@Override
 	public String chooseAction(HttpServletRequest request) {
-		String phone = request.getParameter(PARAM_CONTACT_PHONE);
-		String email = request.getParameter(PARAM_CONTACT_EMAIL);
-		String name = request.getParameter(PARAM_USER_NAME);
-		String surname = request.getParameter(PARAM_USER_SURNAME);
-		String patronymic = request.getParameter(PARAM_USER_PATRONYMIC);
-		
-		User user = new User();
-		user.setName(name);
-		user.setSurname(surname);
-		user.setPatronymic(patronymic);
+		Map<String, String> contactsParams = getRequestContactsParams(request);
+		Map<String, String> userParams = getRequestUserParams(request);
+
+		User user = buildUser(userParams, request);
+
 		int newUser = userService.addNewUser(user);
-		
-		Contacts contacts = new Contacts();
-		contacts.setPhone(phone);
-		contacts.setEmail(email);
+
+		Contacts contacts = buildContact(contactsParams, request);
+
 		contacts.setUserId(newUser);
 		contactsService.addNewContact(contacts);
 
@@ -48,4 +42,18 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 		return PAGE_LIST_CONTACTS_JSP;
 	}
 
+	private User buildUser(Map<String, String> userParams, HttpServletRequest request) {
+		User user = new User();
+		user.setName(userParams.get(PARAM_USER_NAME));
+		user.setSurname(userParams.get(PARAM_USER_SURNAME));
+		user.setPatronymic(userParams.get(PARAM_USER_PATRONYMIC));
+		return user;
+	}
+
+	private Contacts buildContact(Map<String, String> contactsParams, HttpServletRequest request) {
+		Contacts contacts = new Contacts();
+		contacts.setPhone(contactsParams.get(PARAM_CONTACT_PHONE));
+		contacts.setEmail(contactsParams.get(PARAM_CONTACT_EMAIL));
+		return contacts;
+	}
 }

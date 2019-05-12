@@ -46,4 +46,7 @@ public class AbstractDaoMySQL {
 	protected static final String CREATE_CONTACT = "INSERT INTO contacts (phone, email, user_id) VALUES (?,?,?)";
 	protected static final String UPDATE_CONTACT = "UPDATE contacts SET phone=?, email=? WHERE contact_id=?";
 	protected static final String DELETE_CONTACT = "DELETE FROM contacts WHERE contact_id=?";
+	protected static final String GET_INFO_BY_PNONE_NUMBER = "SELECT contact.contact_id, contact.email, contact.phone, contact.user_id, user.user_id, user.name, user.surname, user.patronymic FROM contacts contact LEFT OUTER JOIN users user ON user.user_id=contact.user_id WHERE phone=?";
+	protected static final String GET_INFO_BY_EMAIL = "SELECT contact.contact_id, contact.phone, contact.email, contact.user_id, user.user_id, user.name, user.surname, user.patronymic FROM contacts contact LEFT OUTER JOIN users user ON contact.user_id=user.user_id WHERE email=? ";
+
 }

@@ -1,8 +1,12 @@
 package by.sobol.contact.book.project.web.action;
 
+import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import by.sobol.contact.book.project.domain.Contacts;
 import by.sobol.contact.book.project.domain.User;
@@ -34,4 +38,23 @@ public class ActionAssistant {
 		}
 		return contactsUsersMap;
 	}
+
+	protected Map<String, String> getRequestContactsParams(HttpServletRequest request) {
+		Map<String, String> requestParams = new HashMap<>();
+		requestParams.put(PARAM_CONTACT_ID, request.getParameter(PARAM_CONTACT_ID));
+		requestParams.put(PARAM_CONTACT_PHONE, request.getParameter(PARAM_CONTACT_PHONE));
+		requestParams.put(PARAM_CONTACT_EMAIL, request.getParameter(PARAM_CONTACT_EMAIL));
+		requestParams.put(PARAM_USER_ID, request.getParameter(PARAM_USER_ID));
+		return requestParams;
+	}
+
+	protected Map<String, String> getRequestUserParams(HttpServletRequest request) {
+		Map<String, String> requestParams = new HashMap<>();
+		requestParams.put(PARAM_USER_ID, request.getParameter(PARAM_USER_ID));
+		requestParams.put(PARAM_USER_NAME, request.getParameter(PARAM_USER_NAME));
+		requestParams.put(PARAM_USER_SURNAME, request.getParameter(PARAM_USER_SURNAME));
+		requestParams.put(PARAM_USER_PATRONYMIC, request.getParameter(PARAM_USER_PATRONYMIC));
+		return requestParams;
+	}
+
 }

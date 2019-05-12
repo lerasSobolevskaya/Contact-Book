@@ -12,6 +12,12 @@ public class ActionManager {
 	public static BaseAction determineAction(String action) {
 		BaseAction act = null;
 		switch (action) {
+		case ACTION_GET_INFO_BY_EMAIL:
+			act = new GetInfoByEmailImpl();
+			break;
+		case ACTION_GET_INFO_BY_PHONE_NUM:
+			act = new GetInfoByPhoneNumberImpl();
+			break;
 		case ACTION_FORM_ADD_CONTACTS:
 			act = new PreparingAddContactsImpl();
 			break;

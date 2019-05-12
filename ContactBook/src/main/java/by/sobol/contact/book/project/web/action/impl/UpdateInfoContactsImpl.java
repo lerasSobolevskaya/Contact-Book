@@ -23,32 +23,38 @@ public class UpdateInfoContactsImpl extends ActionAssistant implements BaseActio
 
 	@Override
 	public String chooseAction(HttpServletRequest request) {
-		int userId = formatInt(request.getParameter(PARAM_USER_ID));
-		int contactId = formatInt(request.getParameter(PARAM_CONTACT_ID));
-		String name = request.getParameter(PARAM_USER_NAME);
-		String surname = request.getParameter(PARAM_USER_SURNAME);
-		String email = request.getParameter(PARAM_CONTACT_EMAIL);
-		String phone = request.getParameter(PARAM_CONTACT_PHONE);
-		String patronymic = request.getParameter(PARAM_USER_PATRONYMIC);
+		Map<String, String> contactsParams = getRequestContactsParams(request);
+		Map<String, String> userParams = getRequestUserParams(request);
 
-		Contacts contacts = new Contacts();
-		contacts.setId(contactId);
-		contacts.setPhone(phone);
-		contacts.setEmail(email);
+		Contacts contacts = buildContacts(contactsParams, request);
+		User user = buildUser(userParams, request);
+
 		contactsService.updateContactInfo(contacts);
 
-		User user = new User();
-		user.setId(userId);
-		user.setName(name);
-		user.setSurname(surname);
-		user.setPatronymic(patronymic);
 		userService.updateInfoUser(user);
-		
+
 		List<Contacts> listContacts = contactsService.getAllContacts();
 		request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
 		Map<Integer, User> mapUsers = getUsersForContacts(listContacts);
 		request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
 		return PAGE_LIST_CONTACTS_JSP;
+	}
+
+	private User buildUser(Map<String, String> userParams, HttpServletRequest request) {
+		User user = new User();
+		user.setId(formatInt(userParams.get(PARAM_USER_ID)));
+		user.setName(userParams.get(PARAM_USER_NAME));
+		user.setSurname(userParams.get(PARAM_USER_SURNAME));
+		user.setPatronymic(userParams.get(PARAM_USER_PATRONYMIC));
+		return user;
+	}
+
+	private Contacts buildContacts(Map<String, String> contactsParams, HttpServletRequest request) {
+		Contacts contacts = new Contacts();
+		contacts.setId(formatInt(contactsParams.get(PARAM_CONTACT_ID)));
+		contacts.setEmail(contactsParams.get(PARAM_CONTACT_EMAIL));
+		contacts.setPhone(contactsParams.get(PARAM_CONTACT_PHONE));
+		return contacts;
 	}
 
 }

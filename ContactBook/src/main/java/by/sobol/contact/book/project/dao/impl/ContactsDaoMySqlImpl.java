@@ -12,7 +12,6 @@ import by.sobol.contact.book.project.dao.ContactsDao;
 import by.sobol.contact.book.project.dao.pool.ConnectionPool;
 import by.sobol.contact.book.project.dao.util.AbstractDaoMySQL;
 import by.sobol.contact.book.project.domain.Contacts;
-import by.sobol.contact.book.project.domain.User;
 
 public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDao {
 
@@ -56,6 +55,22 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 	}
 
 	@Override
+	public Contacts getInfoByPhoneNumber(String contactPhoneNum) {
+		Connection connection = ConnectionPool.getInstance().getConnect();
+		ResultSet result = null;
+		Contacts infoByContact = new Contacts();
+		try (PreparedStatement prepareSt = connection.prepareStatement(GET_INFO_BY_PNONE_NUMBER)) {
+			prepareSt.setString(1, contactPhoneNum);
+			result = prepareSt.executeQuery();
+			while (result.next()) {
+				infoByContact = buildContacts(result);
+			}
+		} catch (SQLException ex) {
+		}
+		return infoByContact;
+	}
+
+	@Override
 	public void update(Contacts contact) {
 		Connection connection = ConnectionPool.getInstance().getConnect();
 		try (PreparedStatement preparedSt = connection.prepareStatement(UPDATE_CONTACT)) {
@@ -83,15 +98,6 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		}
 	}
 
-	private Contacts buildContacts(ResultSet result) throws SQLException {
-		Contacts contacts = new Contacts();
-		contacts.setId(result.getInt(CONTACT_ID));
-		contacts.setEmail(result.getString(CONTACT_EMAIL));
-		contacts.setPhone(result.getString(CONTACT_PHONE));
-		contacts.setUserId(result.getInt(USER_ID));
-		return contacts;
-	}
-
 	@Override
 	public int create(Contacts contact) {
 		Connection connection = ConnectionPool.getInstance().getConnect();
@@ -114,4 +120,31 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		return id;
 	}
 
+	@Override
+	public Contacts getInfoByEmail(String email) {
+		Connection connection = ConnectionPool.getInstance().getConnect();
+		Contacts infoByEmail = new Contacts();
+		ResultSet result = null;
+		try (PreparedStatement prepareSt = connection.prepareStatement(GET_INFO_BY_EMAIL)) {
+			prepareSt.setString(1, email);
+			result = prepareSt.executeQuery();
+			while (result.next()) {
+				infoByEmail = buildContacts(result);
+
+			}
+		} catch (SQLException ex) {
+
+		}
+
+		return infoByEmail;
+	}
+
+	private Contacts buildContacts(ResultSet result) throws SQLException {
+		Contacts contacts = new Contacts();
+		contacts.setId(result.getInt(CONTACT_ID));
+		contacts.setEmail(result.getString(CONTACT_EMAIL));
+		contacts.setPhone(result.getString(CONTACT_PHONE));
+		contacts.setUserId(result.getInt(USER_ID));
+		return contacts;
+	}
 }

@@ -36,6 +36,14 @@ public class ContactsServiceImpl implements ContactsService {
 		contactsDao.delete(id);
 	}
 
-	
+	@Override
+	public Contacts getInfoByPhoneNumber(String contactPhoneNum) {
+		return contactsDao.getInfoByPhoneNumber(contactPhoneNum);
+	}
+
+	@Override
+	public Contacts getInfoByEmail(String email) {
+		return contactsDao.getInfoByEmail(email);
+	}
 
 }

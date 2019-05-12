@@ -6,4 +6,6 @@ public interface UserDao extends BaseDao<User> {
 
 	User authorization(User user);
 	
+	
+	
 }
