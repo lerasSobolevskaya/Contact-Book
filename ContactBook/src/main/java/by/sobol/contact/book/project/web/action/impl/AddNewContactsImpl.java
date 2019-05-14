@@ -25,21 +25,29 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 		Map<String, String> contactsParams = getRequestContactsParams(request);
 		Map<String, String> userParams = getRequestUserParams(request);
 
-		User user = buildUser(userParams, request);
+		if (validateUserInputData(userParams, request)) {
+			User user = buildUser(userParams, request);
 
-		int newUser = userService.addNewUser(user);
+			int newUser = userService.addNewUser(user);
 
-		Contacts contacts = buildContact(contactsParams, request);
+			if (validateContactInputData(contactsParams, request)) {
+				Contacts contacts = buildContact(contactsParams, request);
 
-		contacts.setUserId(newUser);
-		contactsService.addNewContact(contacts);
+				contacts.setUserId(newUser);
+				contactsService.addNewContact(contacts);
 
-		List<Contacts> listContacts = contactsService.getAllContacts();
-		request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
-		Map<Integer, User> mapUsers = getUsersForContacts(listContacts);
-		request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
+				List<Contacts> listContacts = contactsService.getAllContacts();
+				request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
+				Map<Integer, User> mapUsers = getUsersForContacts(listContacts);
+				request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
 
-		return PAGE_LIST_CONTACTS_JSP;
+				return PAGE_LIST_CONTACTS_JSP;
+			}
+		} else {
+			return "";
+
+		}
+		return "";
 	}
 
 	private User buildUser(Map<String, String> userParams, HttpServletRequest request) {

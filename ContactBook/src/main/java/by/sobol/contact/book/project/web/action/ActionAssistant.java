@@ -1,6 +1,7 @@
 package by.sobol.contact.book.project.web.action;
 
 import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
+import static by.sobol.contact.book.project.web.action.util.RequestParamValidator.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import by.sobol.contact.book.project.domain.User;
 import by.sobol.contact.book.project.service.ContactsService;
 import by.sobol.contact.book.project.service.UserService;
 import by.sobol.contact.book.project.service.factory.ServiceFactory;
+import by.sobol.contact.book.project.web.action.util.RequestParamValidationException;
 
 public class ActionAssistant {
 
@@ -57,4 +59,47 @@ public class ActionAssistant {
 		return requestParams;
 	}
 
+	protected boolean validateContactInputData(Map<String, String> requestParams, HttpServletRequest request)
+			throws RequestParamValidationException {
+		boolean result = true;
+		if (!validatePhoneNumber(requestParams.get(PARAM_CONTACT_PHONE))) {
+			request.setAttribute("Invalid phone", null);
+		}
+		if (!validateEmail(requestParams.get(PARAM_CONTACT_EMAIL))) {
+			request.setAttribute("Invalid email", null);
+		}
+		return result;
+	}
+
+	protected boolean validateUserInputData(Map<String, String> requestParams, HttpServletRequest request) {
+		boolean result = true;
+		if (!validateUserName(requestParams.get(PARAM_USER_NAME))) {
+			request.setAttribute("Invalid name", null);
+		}
+		if (!validateUserSurname(requestParams.get(PARAM_USER_SURNAME))) {
+			request.setAttribute("Invalid surname", null);
+		}
+		if (!validateUserPatronymic(requestParams.get(PARAM_USER_PATRONYMIC))) {
+			request.setAttribute("Invalid patronymic", null);
+		}
+		return result;
+	}
+
+	protected static boolean verifyPhoneNumber(String phoneNum) {
+		Contacts contacts = contactsService.getInfoByPhoneNumber(phoneNum);
+		if (phoneNum.equals(contacts.getPhone())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected static boolean verifyEmail(String email) {
+		Contacts emailFromDB = contactsService.getInfoByEmail(email);
+		if (email.equals(emailFromDB.getEmail())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -19,5 +19,7 @@ public interface ContactsService {
 	Contacts getInfoByPhoneNumber(String contactPhoneNum);
 	
 	Contacts getInfoByEmail(String email);
+	
+//	Contacts getEmail(String email);
 
 }

@@ -14,7 +14,7 @@ public class WebControllerConstantPool {
 	public static final String ACTION_FORM_ADD_CONTACTS = "formAddContacts";
 	public static final String ACTION_GET_INFO_BY_PHONE_NUM = "getInfoByPhoneNumber";
 	public static final String ACTION_GET_INFO_BY_EMAIL = "getInfoByEmail";
-	
+
 	public static final String ATTRIBUTE_LIST_USERS = "listUsers";
 	public static final String ATTRIBUTE_MAP_CONTACTS = "mapContacts";
 	public static final String ATTRIBUTE_LIST_CONTACTS = "listContacts";
@@ -33,11 +33,7 @@ public class WebControllerConstantPool {
 	public static final String PARAM_CONTACT_ID = "contact_id";
 	public static final String PARAM_CONTACT_EMAIL = "email";
 	public static final String PARAM_CONTACT_PHONE = "phone";
-	
-	public static final String REGEX_EMAIL = "^((\\\\w|[-+])+(\\\\.[\\\\w-]+)*@[\\\\w-]+((\\\\.[\\\\d\\\\p{Alpha}]+)*(\\\\.\\\\p{Alpha}{2,})*)*)$";
-	public static final String REGEX_PHONE_NUM = "(\\\\+?37529|8029)[-]?\\\\s?\\\\d{3}[-]?\\\\s?\\\\d{2}[-]?\\\\s?\\\\d{2}";
 
-	
 	public static final String PAGE_INFO_BY_EMAIL_JSP = "/jsp/common/infoByEmail.jsp";
 	public static final String PAGE_INFO_BY_PHONE_NUM_JSP = "/jsp/common/infoByPhoneNumber.jsp";
 	public static final String PAGE_FORM_ADD_CONTACTS_JSP = "/jsp/admin/formAddContacts.jsp";
@@ -47,4 +43,8 @@ public class WebControllerConstantPool {
 	public static final String PAGE_INDEX_JSP = "index.jsp";
 	public static final String PAGE_AUTHORIZATION_FORM_JSP = "/jsp/admin/authorizationForm.jsp";
 	public static final String PAGE_LIST_CONTACTS_JSP = "/jsp/admin/listContacts.jsp";
+
+	public static final String PAGE_ERRORN_INVALID_PHONE_NUM_JSP = "/jsp/errors/invalidPhoneNum.jsp";
+	public static final String PAGE_ERRORN_INVALID_EMAIL_JSP = "/jsp/errors/invalidEmail.jsp";
+
 }

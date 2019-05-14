@@ -15,9 +15,6 @@
 	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css' />
-<link
 	href='${pageContext.request.contextPath}/resources/bootstrap/fonts/fonts.googleapis.css'
 	rel='stylesheet' type='text/css' />
 
@@ -47,7 +44,6 @@
 						<div class="form-group">
 							<label for="form_phone">Поиск по номеру телефона</label> <input
 								id="form_phone" type="text" name="phone" class="form-control">
-							<div class="help-block with-errors"></div>
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -57,14 +53,13 @@
 				</form>
 				
 				<div class="row">
-					<form action="MainServlet" method="get">
+					<form id="contact-form" action="MainServlet" method="get">
 						<input type="hidden" name="command" value="getInfoByEmail">
 
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="form_email">Поиск по Email</label> <input id="form_email"
 									type="email" name="email" class="form-control">
-								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -77,18 +72,8 @@
 
 			</div>
 		</div>
-		<!-- /.col-lg-8 col-lg-offset-2 -->
 
 	</div>
 
-	<!-- 	<script -->
-	<!-- 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-	<!-- 	<script -->
-	<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-	<!-- 	<script src='https://www.google.com/recaptcha/api.js'></script> -->
-	<!-- 	<script -->
-	<!-- 		src="http://bootstraptema.ru/snippets/form/2017/recaptcha/validator.js"></script> -->
-	<!-- 	<script -->
-	<!-- 		src="http://bootstraptema.ru/snippets/form/2017/recaptcha/contact.js"></script> -->
 </body>
 </html>
