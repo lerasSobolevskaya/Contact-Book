@@ -26,18 +26,23 @@ public class UpdateInfoContactsImpl extends ActionAssistant implements BaseActio
 		Map<String, String> contactsParams = getRequestContactsParams(request);
 		Map<String, String> userParams = getRequestUserParams(request);
 
-		Contacts contacts = buildContacts(contactsParams, request);
-		User user = buildUser(userParams, request);
+		if (validateContactInputData(contactsParams, request)) {
+			Contacts contacts = buildContacts(contactsParams, request);
 
-		contactsService.updateContactInfo(contacts);
+			if (validateUserInputData(userParams, request)) {
+				User user = buildUser(userParams, request);
 
-		userService.updateInfoUser(user);
+				contactsService.updateContactInfo(contacts);
 
-		List<Contacts> listContacts = contactsService.getAllContacts();
-		request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
-		Map<Integer, User> mapUsers = getUsersForContacts(listContacts);
-		request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
-		return PAGE_LIST_CONTACTS_JSP;
+				userService.updateInfoUser(user);
+				List<Contacts> listContacts = contactsService.getAllContacts();
+				request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
+				Map<Integer, User> mapUsers = getUsersForContacts(listContacts);
+				request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
+				return PAGE_LIST_CONTACTS_JSP;
+			}
+		}
+		return PAGE_FORM_UPDATE_CONTACT_JSP;
 	}
 
 	private User buildUser(Map<String, String> userParams, HttpServletRequest request) {

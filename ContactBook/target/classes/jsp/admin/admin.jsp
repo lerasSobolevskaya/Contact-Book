@@ -7,17 +7,10 @@
 <title>Admin</title>
 </head>
 <body>
-	<form action="MainServlet" method="post">
-		<input type="hidden" name="command" value="listUsers" /> <input
-			type="submit" value="List Users" />
-	</form>
-	<form action="MainServlet" method="post">
-		<input type="hidden" name="command" value="formAddUser" /> <input
-			type="submit" value="Добавить" />
-	</form>
+
 	<form action="MainServlet" method="post">
 		<input type="hidden" name="command" value="listContacts" /> <input
-			type="submit" value="List Contacts" />
+			type="submit" value="Список контактов" />
 	</form>
 </body>
 </html>

@@ -3,18 +3,15 @@ package by.sobol.contact.book.project.web.action.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import by.sobol.contact.book.project.dao.impl.ContactsDaoMySqlImpl;
-
 public class RequestParamValidator {
-	public static ContactsDaoMySqlImpl dao = new ContactsDaoMySqlImpl();
-
+	
 	private RequestParamValidator() {
 	}
 
-	public static final String REGEX_ONLY_LETTERS = "";
+	public static final String REGEX_ONLY_LETTERS = "^[A-Za-zА-Яа-яЁё]*$";
 	public static final String REGEX_EMAIL = "^((\\w|[-+])+(\\.[\\w-]+)*@[\\w-]+((\\.[\\d\\p{Alpha}]+)*(\\.\\p{Alpha}{2,})*)*)$";
-	public static final String REGEX_PHONE_NUM = "(\\+?37529|8029)[-]?\\s?\\d{3}[-]?\\s?\\d{2}[-]?\\s?\\d{2}";
-
+	public static final String REGEX_PHONE_NUM = "^((\\+?375)([0-9]{9}))$";
+	
 	public static void validateLoginAndPass(String login, String password) {
 		if (login == null || password == null) {
 			throw new RequestParamValidationException();

@@ -2,19 +2,18 @@ package by.sobol.contact.book.project.web.action;
 
 import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
 import static by.sobol.contact.book.project.web.action.util.RequestParamValidator.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import by.sobol.contact.book.project.resources.Resources;
 import by.sobol.contact.book.project.domain.Contacts;
 import by.sobol.contact.book.project.domain.User;
 import by.sobol.contact.book.project.service.ContactsService;
 import by.sobol.contact.book.project.service.UserService;
 import by.sobol.contact.book.project.service.factory.ServiceFactory;
-import by.sobol.contact.book.project.web.action.util.RequestParamValidationException;
 
 public class ActionAssistant {
 
@@ -59,14 +58,19 @@ public class ActionAssistant {
 		return requestParams;
 	}
 
-	protected boolean validateContactInputData(Map<String, String> requestParams, HttpServletRequest request)
-			throws RequestParamValidationException {
+	protected boolean validateContactInputData(Map<String, String> requestParams, HttpServletRequest request) {
 		boolean result = true;
 		if (!validatePhoneNumber(requestParams.get(PARAM_CONTACT_PHONE))) {
-			request.setAttribute("Invalid phone", null);
+			request.setAttribute(INVALID_CONTACT_PHONE_NUM, Resources.getMessage(INVALID_CONTACT_PHONE_NUM, request));
+			result = false;
+		} else {
+			request.setAttribute(PARAM_CONTACT_PHONE, requestParams.get(PARAM_CONTACT_PHONE));
 		}
 		if (!validateEmail(requestParams.get(PARAM_CONTACT_EMAIL))) {
-			request.setAttribute("Invalid email", null);
+			request.setAttribute(INVALID_CONTACT_EMAIL, Resources.getMessage(INVALID_CONTACT_EMAIL, request));
+			result = false;
+		} else {
+			request.setAttribute(PARAM_CONTACT_EMAIL, requestParams.get(PARAM_CONTACT_EMAIL));
 		}
 		return result;
 	}
@@ -74,13 +78,22 @@ public class ActionAssistant {
 	protected boolean validateUserInputData(Map<String, String> requestParams, HttpServletRequest request) {
 		boolean result = true;
 		if (!validateUserName(requestParams.get(PARAM_USER_NAME))) {
-			request.setAttribute("Invalid name", null);
+			request.setAttribute(INVALID_USER_NAME, Resources.getMessage(INVALID_USER_NAME, request));
+			result = false;
+		} else {
+			request.setAttribute(PARAM_USER_NAME, requestParams.get(PARAM_USER_NAME));
 		}
 		if (!validateUserSurname(requestParams.get(PARAM_USER_SURNAME))) {
-			request.setAttribute("Invalid surname", null);
+			request.setAttribute(INVALID_USER_SURNAME, Resources.getMessage(INVALID_USER_SURNAME, request));
+			result = false;
+		} else {
+			request.setAttribute(PARAM_USER_SURNAME, requestParams.get(PARAM_USER_SURNAME));
 		}
 		if (!validateUserPatronymic(requestParams.get(PARAM_USER_PATRONYMIC))) {
-			request.setAttribute("Invalid patronymic", null);
+			request.setAttribute(INVALID_USER_PATRONYMIC, Resources.getMessage(INVALID_USER_PATRONYMIC, request));
+			result = false;
+		} else {
+			request.setAttribute(PARAM_USER_PATRONYMIC, requestParams.get(PARAM_USER_PATRONYMIC));
 		}
 		return result;
 	}

@@ -43,11 +43,9 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 
 				return PAGE_LIST_CONTACTS_JSP;
 			}
-		} else {
-			return "";
-
 		}
-		return "";
+		return PAGE_FORM_ADD_CONTACTS_JSP;
+
 	}
 
 	private User buildUser(Map<String, String> userParams, HttpServletRequest request) {

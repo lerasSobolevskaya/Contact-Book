@@ -10,13 +10,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/fonts/fonts.googleapis.css'
+	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts.googleapis.css'
 	rel='stylesheet' type='text/css' />
 <body>
 	<div class="container">
@@ -29,7 +29,7 @@
 
 				<p class="lead">Bootstrap contact form with PHP and AJAX add
 					Google's ReCaptcha.</p>
-					
+
 				<div>
 					Email:
 					<c:out value="${contact.getEmail()}" />
@@ -64,6 +64,10 @@
 							<div class="form-group">
 								<label for="form_phone" id="phone">Номер телефона</label> <input
 									id="phone" type="text" name="phone" class="form-control">
+								<c:if test="${not empty invalid_phone_number}">
+									<small class="form-text text-danger"> <c:out value="${invalid_phone_number}" />
+									</small>
+								</c:if>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
@@ -72,6 +76,9 @@
 							<div class="form-group">
 								<label for="form_email" id="email">Email</label> <input
 									id="form_email" type="text" name="email" class="form-control">
+								<c:if test="${not empty invalid_email}">
+									<small class="form-text text-danger"><c:out value="${invalid_email}" /></small>
+								</c:if>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
@@ -81,6 +88,9 @@
 							<div class="form-group">
 								<label for="form_name" id="name">Имя</label> <input id="name"
 									type="text" name="name" class="form-control">
+								<c:if test="${not empty invalid_user_name}">
+									<small class="form-text text-danger"><c:out value="${invalid_user_name}" /></small>
+								</c:if>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
@@ -88,6 +98,9 @@
 							<div class="form-group">
 								<label for="form_surname" id="surname">Фамилия</label> <input
 									id="surname" type="text" name="surname" class="form-control">
+								<c:if test="${not empty invalid_user_surname}">
+									<small class="form-text text-danger"> <c:out value="${invalid_user_surname}" /></small>
+								</c:if>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
@@ -97,13 +110,16 @@
 							<label for="form_patronymic" id="patronymic">Отчество</label> <input
 								id="form_patronymic" type="text" name="patronymic"
 								class="form-control">
+							<c:if test="${not empty invalid_user_patronymic}">
+								<small class="form-text text-danger"><c:out
+										value="${invalid_user_patronymic}" /></small>
+							</c:if>
 							<div class="help-block with-errors"></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<input type="submit" class="btn btn-success btn-send"
-								value="Изменить">
+							<input type="submit" class="btn btn-primary" value="Изменить">
 						</div>
 					</div>
 

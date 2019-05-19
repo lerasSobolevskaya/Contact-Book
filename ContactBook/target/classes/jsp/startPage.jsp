@@ -12,17 +12,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/fonts/fonts.googleapis.css'
+	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts.googleapis.css'
 	rel='stylesheet' type='text/css' />
-
+<link
+	href='${pageContext.request.contextPath}/resources/styles/css/custom.css'
+	rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<form action="MainServlet" method="get">
 		<input type="hidden" name="command" value="formAuthentication" /> <input
-			type="submit" value="Вы администратор этого сайта?">
+			type="submit" value="Вы администратор этого сайта?"
+			class="btn btn-default">
+		<button type="submit" class="btn btn-default">ВХОД</button>
 	</form>
 	<div class="container">
 
@@ -30,16 +34,15 @@
 
 			<div class="col-lg-8 col-lg-offset-2">
 
-				<h1 class="text-center">Bootstrap ReCaptcha Form</h1>
+				<h1 class="text-center">Контактная книга</h1>
 
-				<p class="lead">Bootstrap contact form with PHP and AJAX add
-					Google's ReCaptcha.</p>
+				<p class="lead">Поиск информации по номеру телефона или email</p>
 
 
 				<form id="contact-form" method="get" action="MainServlet"
 					role="form">
 					<input type="hidden" name="command" value="getInfoByPhoneNumber">
-			
+
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="form_phone">Поиск по номеру телефона</label> <input
@@ -47,32 +50,28 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<input type="submit" class="btn btn-success btn-send"
+						<input type="submit" class="btn btn-default"
+							value="Поиск по справочнику" class="btn btn-default">
+					</div>
+				</form>
+
+				<form id="contact-form" action="MainServlet" method="get">
+					<input type="hidden" name="command" value="getInfoByEmail">
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="form_email">Поиск по Email</label> <input
+								id="form_email" type="email" name="email" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input type="submit" class="btn btn-default"
 							value="Поиск по справочнику">
 					</div>
 				</form>
-				
-				<div class="row">
-					<form id="contact-form" action="MainServlet" method="get">
-						<input type="hidden" name="command" value="getInfoByEmail">
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="form_email">Поиск по Email</label> <input id="form_email"
-									type="email" name="email" class="form-control">
-							</div>
-						</div>
-						<div class="col-md-12">
-							<input type="submit" class="btn btn-success btn-send"
-								value="Поиск по справочнику">
-						</div>
-					</form>
-				</div>
-
-
 			</div>
-		</div>
 
+		</div>
 	</div>
 
 </body>

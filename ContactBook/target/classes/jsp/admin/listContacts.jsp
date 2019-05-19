@@ -10,13 +10,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel='stylesheet' type='text/css' />
 <link
-	href='${pageContext.request.contextPath}/resources/bootstrap/fonts/fonts.googleapis.css'
+	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts.googleapis.css'
 	rel='stylesheet' type='text/css' />
 <body>
 	<form action="MainServlet" method="get">
@@ -48,13 +48,11 @@
 		<form action="MainServlet" method="get">
 			<input type="hidden" name="command" value="formUpdateContacts"><input
 				type="hidden" name="contact_id" value="${contact.id}">
-			<!-- 				<input -->
-			<%-- 				type="hidden" name="user_id" value="${user.id}"> --%>
 			<input type="submit" value="update Contact">
 		</form>
 		<form action="MainServlet" method="get">
 			<input type="hidden" name="command" value="deleteContacts"> <input
-				type="hidden" name="contact_id" value="${contact.id}"> <input
+				type="hidden" name="user_id" value="${contact.userId}"> <input
 				type="submit" value="Delete contact">
 		</form>
 	</c:forEach>

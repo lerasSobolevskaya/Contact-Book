@@ -46,5 +46,13 @@ public class WebControllerConstantPool {
 
 	public static final String PAGE_ERRORN_INVALID_PHONE_NUM_JSP = "/jsp/errors/invalidPhoneNum.jsp";
 	public static final String PAGE_ERRORN_INVALID_EMAIL_JSP = "/jsp/errors/invalidEmail.jsp";
+	
+	public static final String INVALID_USER_NAME = "invalid_user_name";
+	public static final String INVALID_USER_SURNAME = "invalid_user_surname";
+	public static final String INVALID_USER_PATRONYMIC = "invalid_user_patronymic";
+	
+	public static final String INVALID_CONTACT_EMAIL = "invalid_email";
+	public static final String INVALID_CONTACT_PHONE_NUM = "invalid_phone_number";
+	
 
 }
