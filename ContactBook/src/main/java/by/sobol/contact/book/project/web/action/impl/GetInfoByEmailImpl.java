@@ -2,8 +2,6 @@ package by.sobol.contact.book.project.web.action.impl;
 
 import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
 
-import static by.sobol.contact.book.project.web.action.util.RequestParamValidator.validateEmail;
-
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +22,12 @@ public class GetInfoByEmailImpl extends ActionAssistant implements BaseAction {
 	public String chooseAction(HttpServletRequest request) {
 		String email = request.getParameter(PARAM_CONTACT_EMAIL);
 
-		if (validateEmail(email)) {
+		if (validateInputEmail(email, request)) {
 			if (!verifyEmail(email)) {
-				return PAGE_ERRORN_INVALID_EMAIL_JSP;
+				return PAGE_START_PAGE_JSP;
 			}
 		}
 		Contacts contacts = contactsService.getInfoByEmail(email);
-		request.setAttribute("contact", contacts);
 		request.setAttribute(ATTRIBUTE_CONTACTS, contacts);
 		List<Contacts> listContacts = contactsService.getAllContacts();
 		Map<Integer, User> mapUsers = getUsersForContacts(listContacts);

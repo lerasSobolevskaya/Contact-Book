@@ -1,16 +1,17 @@
 package by.sobol.contact.book.project.web.action;
 
-import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
 import static by.sobol.contact.book.project.web.action.util.RequestParamValidator.*;
+import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import by.sobol.contact.book.project.resources.Resources;
 import by.sobol.contact.book.project.domain.Contacts;
 import by.sobol.contact.book.project.domain.User;
+import by.sobol.contact.book.project.resources.Resources;
 import by.sobol.contact.book.project.service.ContactsService;
 import by.sobol.contact.book.project.service.UserService;
 import by.sobol.contact.book.project.service.factory.ServiceFactory;
@@ -71,6 +72,33 @@ public class ActionAssistant {
 			result = false;
 		} else {
 			request.setAttribute(PARAM_CONTACT_EMAIL, requestParams.get(PARAM_CONTACT_EMAIL));
+		}
+		return result;
+	}
+
+	protected boolean validateInputPhoneNum(String phone, HttpServletRequest request) {
+		boolean result = true;
+		Contacts contacts = new Contacts();
+		phone = request.getParameter(PARAM_CONTACT_PHONE);
+		if (!phone.equals(contacts.getPhone())) {
+			request.setAttribute(CONTACT_PHONE_NUM_DONT_EXIST,
+					Resources.getMessage(CONTACT_PHONE_NUM_DONT_EXIST, request));
+		}
+		if (!validatePhoneNumber(phone)) {
+			request.setAttribute(INVALID_CONTACT_PHONE_NUM, Resources.getMessage(INVALID_CONTACT_PHONE_NUM, request));
+		} else {
+			request.setAttribute(PARAM_CONTACT_PHONE, phone);
+		}
+		return result;
+	}
+
+	protected boolean validateInputEmail(String email, HttpServletRequest request) {
+		email = request.getParameter(PARAM_CONTACT_EMAIL);
+		boolean result = true;
+		if (validateEmail(email)) {
+			request.setAttribute(INVALID_CONTACT_EMAIL, Resources.getMessage(INVALID_CONTACT_EMAIL, request));
+		} else {
+			request.setAttribute(PARAM_CONTACT_EMAIL, email);
 		}
 		return result;
 	}

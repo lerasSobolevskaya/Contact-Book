@@ -12,11 +12,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css' />
+	href='${pageContext.request.contextPath}/resources/styles/css/custom.css'
+	rel="stylesheet" type="text/css" />
 <link
-	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts.googleapis.css'
-	rel='stylesheet' type='text/css' />
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
+	rel="stylesheet" type="text/css" />
+<!-- <link -->
+<%-- 	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css' --%>
+<!-- 	rel="stylesheet" type="text/css" /> -->
 <body>
 	<div class="container">
 
@@ -30,10 +33,8 @@
 					Google's ReCaptcha.</p>
 
 				<form id="contact-form" method="get" action="MainServlet"
-					role="form">
+					role="form" class="form-horizontal">
 					<input type="hidden" name="command" value="saveNewContacts">
-					<%-- 					<input type="hidden" name="contact_id" value="${contact.Id()}"> --%>
-					<%-- 					<input type="hidden" name="user_id" value="${user.getId()}"> --%>
 					<div class="messages"></div>
 
 					<div class="controls">
@@ -48,6 +49,7 @@
 												value="${invalid_user_name}" />
 										</small>
 									</c:if>
+									
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
@@ -106,8 +108,9 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<input type="submit" class="btn btn-primary"
+								<input type="submit" class="btn btn-default"
 									value="Добавить в справочник">
+									
 							</div>
 						</div>
 					</div>

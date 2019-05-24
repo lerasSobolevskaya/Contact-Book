@@ -1,6 +1,5 @@
 package by.sobol.contact.book.project.web.action.impl;
 
-import static by.sobol.contact.book.project.web.action.util.RequestParamValidator.validatePhoneNumber;
 import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.*;
 
 import java.util.List;
@@ -23,9 +22,9 @@ public class GetInfoByPhoneNumberImpl extends ActionAssistant implements BaseAct
 	public String chooseAction(HttpServletRequest request) {
 		String phone = request.getParameter(PARAM_CONTACT_PHONE);
 
-		if (validatePhoneNumber(phone)) {
+		if (validateInputPhoneNum(phone, request)) {
 			if (!verifyPhoneNumber(phone)) {
-				return PAGE_ERRORN_INVALID_PHONE_NUM_JSP;
+				return PAGE_START_PAGE_JSP;
 			}
 		}
 		Contacts contacts = contactsService.getInfoByPhoneNumber(phone);

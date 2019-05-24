@@ -5,23 +5,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link
+	href='${pageContext.request.contextPath}/resources/styles/css/custom.css'
+	rel="stylesheet" type="text/css" />
+<!-- <link -->
+<%-- 	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css' --%>
+<!-- 	rel="stylesheet" type="text/css" /> -->
+<!-- <link -->
+<%-- 	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css' --%>
+<!-- 	rel="stylesheet" type="text/css" /> -->
+<title>Список контактов</title>
 </head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link
-	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css' />
-<link
-	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css' />
-<link
-	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts.googleapis.css'
-	rel='stylesheet' type='text/css' />
 <body>
-	<form action="MainServlet" method="get">
+	<form class="form-horizontal" action="MainServlet" method="get">
 		<input type="hidden" name="command" value="formAddContacts"> <input
-			type="submit" value="add new contacts">
+			type="submit" value="Добавить новый контакт" class="btn btn-default">
 	</form>
 	<c:forEach var="contact" items="${listContacts}">
 		<p>
@@ -45,15 +43,16 @@
 			Отчество:
 			<c:out value="${mapUsers.get(contact.getId()).getPatronymic()}" />
 		</p>
-		<form action="MainServlet" method="get">
+		<form action="MainServlet" method="get" class="form-horizontal">
 			<input type="hidden" name="command" value="formUpdateContacts"><input
-				type="hidden" name="contact_id" value="${contact.id}">
-			<input type="submit" value="update Contact">
+				type="hidden" name="contact_id" value="${contact.id}"> <input
+				type="submit" value="Изменить контактную информацию"
+				class="btn btn-default">
 		</form>
-		<form action="MainServlet" method="get">
+		<form action="MainServlet" method="get" class="form-horizontal">
 			<input type="hidden" name="command" value="deleteContacts"> <input
 				type="hidden" name="user_id" value="${contact.userId}"> <input
-				type="submit" value="Delete contact">
+				type="submit" value="Удалить контакт" class="btn btn-default">
 		</form>
 	</c:forEach>
 

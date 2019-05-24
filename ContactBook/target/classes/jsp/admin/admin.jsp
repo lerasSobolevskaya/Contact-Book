@@ -4,13 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<link
+	href='${pageContext.request.contextPath}/resources/styles/css/custom.css'
+	rel="stylesheet" type="text/css" />
+<link
+	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
+	rel="stylesheet" type="text/css" />
+<link
+	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css'
+	rel="stylesheet" type="text/css" />
+<title>Администратор</title>
 </head>
 <body>
 
-	<form action="MainServlet" method="post">
+	<form class="form-horizontal" action="MainServlet" method="post">
 		<input type="hidden" name="command" value="listContacts" /> <input
-			type="submit" value="Список контактов" />
+			type="submit" value="Список контактов" class="btn btn-default"/>
 	</form>
 </body>
 </html>
