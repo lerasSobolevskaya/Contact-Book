@@ -7,10 +7,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import by.sobol.contact.book.project.domain.Entity;
+import static by.sobol.contact.book.project.dao.util.AbstractDaoMySQL.ERROR_IN_BASE_DAO_CLOSE_RESULT_SET;
 
 public interface BaseDao<T extends Entity> {
 
-//	static final Logger LOG = Logger.getLogger(BaseDao.class);
+	static final Logger LOG = Logger.getLogger(BaseDao.class);
 
 	List<T> getList();
 
@@ -27,7 +28,7 @@ public interface BaseDao<T extends Entity> {
 			try {
 				result.close();
 			}catch(SQLException ex){
-//				LOG.error("Can't close ResultSet ", ex);
+				LOG.error(ERROR_IN_BASE_DAO_CLOSE_RESULT_SET, ex);
 			}
 		}
 	}

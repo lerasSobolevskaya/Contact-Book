@@ -2,21 +2,27 @@ package by.sobol.contact.book.project.dao.util;
 
 public class AbstractDaoMySQL {
 
+	public static final String ERROR_IN_BASE_DAO_CLOSE_RESULT_SET = "Can't close ResultSet in closeResultSet(result) method in BaseDao.class";
+
 	public static final String ERROR_IN_POOL_DRIVER = "Driver not found in ConnectionPool.class ";
-	public static final String ERROR_IN_POOL_DISCONENCT = "Connection is not in the usedConnections queue";
+	public static final String ERROR_IN_POOL_DISCONENCT = "Error in method disconnect(connection) in ConnetionPool.class";
+	public static final String ERROR_IN_CREATE_CONN = "Error in method createConnection() in ConnetionPool.class";
+	public static final String ERROR_IN_GET_CONNECT = "Error in method getConnect() in ConnetionPool.class";
 
 	protected static final String ERROR_IN_USER_DAO_GET_LIST = "Error in getList() method in UserDaoMySqlImpl.class ";
-	protected static final String ERROR_IN_USER_DAO_CREATE = "Error in create() method in UserDaoMySqlImpl.class ";
-	protected static final String ERROR_IN_USER_DAO_READ = "Error in read() method in UserDaoMySqlImpl.class  ";
-	protected static final String ERROR_IN_USER_DAO_UPDATE = "Error in update() method in UserDaoMySqlImpl.class";
-	protected static final String ERROR_IN_USER_DAO_DELETE = "Error in delete() method in UserDaoMySqlmplclass";
-	protected static final String ERROR_IN_USER_DAO_CHECK_USER = "Error in checkRole() method in UserDaoMySqlmplclass";
+	protected static final String ERROR_IN_USER_DAO_CREATE = "Error in create(user) method in UserDaoMySqlImpl.class ";
+	protected static final String ERROR_IN_USER_DAO_READ = "Error in read(id) method in UserDaoMySqlImpl.class  ";
+	protected static final String ERROR_IN_USER_DAO_UPDATE = "Error in update(user) method in UserDaoMySqlImpl.class";
+	protected static final String ERROR_IN_USER_DAO_DELETE = "Error in delete(id) method in UserDaoMySqlmplclass";
+	protected static final String ERROR_IN_USER_DAO_CHECK_USER = "Error in checkRole(userIn) method in UserDaoMySqlmplclass";
 
-	protected static final String ERROR_IN_CONTACTS_DAO_CREATE = "Error in create() method in ContactsDaoMySqlImpl.class";
+	protected static final String ERROR_IN_CONTACTS_DAO_CREATE = "Error in create(contact) method in ContactsDaoMySqlImpl.class";
 	protected static final String ERROR_IN_CONTACTS_DAO_GET_LIST = "Error in getList() method in ContactsDaoMySqlImpl.class";
-	protected static final String ERROR_IN_CONTACTS_DAO_UPDATE = "Error in update() method in ContactsDaoMySqlImpl.class";
+	protected static final String ERROR_IN_CONTACTS_DAO_UPDATE = "Error in update(contact) method in ContactsDaoMySqlImpl.class";
 	protected static final String ERROR_IN_CONTACTS_DAO_DELETE = "Error in delete() method in ContactsDaoMySqlImpl.class";
-	protected static final String ERROR_IN_CONTACTS_DAO_READ = "Error in read() method in ContactsDaoMySqlImpl.class";
+	protected static final String ERROR_IN_CONTACTS_DAO_READ = "Error in read(id) method in ContactsDaoMySqlImpl.class";
+	protected static final String ERROR_IN_CONTACTS_DAO_INFO_BY_EMAIL = "Error in getInfoByEmail(email) method in ContactsDaoMySqlImpl.class";
+	protected static final String ERROR_IN_CONTACTS_DAO_INFO_BY_PHONE = "Error in getInfoByPhoneNumber(contactPhoneNum) method in ContactsDaoMySqlImpl.class";
 
 	protected static final String USER_ID = "user_id";
 	protected static final String USER_NAME = "name";

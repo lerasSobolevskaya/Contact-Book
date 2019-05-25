@@ -1,7 +1,5 @@
 package by.sobol.contact.book.project.dao.pool;
 
-import static by.sobol.contact.book.project.dao.util.AbstractDaoMySQL.ERROR_IN_POOL_DRIVER;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -66,7 +64,7 @@ public class ConnectionPool {
 		try {
 			connection = DriverManager.getConnection(URL, LOGIN, PASS);
 		} catch (SQLException ex) {
-			LOG.error("", ex);
+			LOG.error(ERROR_IN_CREATE_CONN, ex);
 		}
 		return connection;
 	}
@@ -78,7 +76,7 @@ public class ConnectionPool {
 				connect = availableConnections.take();
 				usedConnections.add(connect);
 			} catch (InterruptedException ex) {
-				LOG.error("", ex);
+				LOG.error(ERROR_IN_GET_CONNECT, ex);
 			}
 			return connect;
 		}

@@ -2,7 +2,7 @@ package by.sobol.contact.book.project.web.controller;
 
 import static by.sobol.contact.book.project.web.action.ActionManager.determineAction;
 import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.REAUEST_PARAM_COMMAND;
-
+import static by.sobol.contact.book.project.web.action.util.WebControllerConstantPool.ERROR_IN_MAIN_SERVLET;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -44,7 +44,7 @@ public class MainServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException ex) {
-			LOG.error("", ex);
+			LOG.error(ERROR_IN_MAIN_SERVLET, ex);
 
 		}
 	}

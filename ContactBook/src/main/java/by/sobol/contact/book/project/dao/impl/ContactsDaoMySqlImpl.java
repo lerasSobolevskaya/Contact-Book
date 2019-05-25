@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import by.sobol.contact.book.project.dao.ContactsDao;
 import by.sobol.contact.book.project.dao.pool.ConnectionPool;
 import by.sobol.contact.book.project.dao.util.AbstractDaoMySQL;
@@ -15,7 +17,7 @@ import by.sobol.contact.book.project.domain.Contacts;
 
 public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDao {
 
-//	public static final Logger LOG = Logger.getLogger(ContactsDaoMySqlImpl.class);
+	public static final Logger LOG = Logger.getLogger(ContactsDaoMySqlImpl.class);
 
 	@Override
 	public List<Contacts> getList() {
@@ -28,9 +30,10 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 				contacts.add(buildContacts(result));
 			}
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_CONTACTS_DAO_GET_LIST);
+			LOG.error(ERROR_IN_CONTACTS_DAO_GET_LIST);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 		return contacts;
 	}
@@ -47,9 +50,10 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 				contact = buildContacts(result);
 			}
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_CONTACTS_DAO_READ, ex);
+			LOG.error(ERROR_IN_CONTACTS_DAO_READ, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 		return contact;
 	}
@@ -66,6 +70,8 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 				infoByContact = buildContacts(result);
 			}
 		} catch (SQLException ex) {
+			LOG.error(ERROR_IN_CONTACTS_DAO_INFO_BY_PHONE, ex);
+			closeResultSet(result);
 		}
 		return infoByContact;
 	}
@@ -79,7 +85,7 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 			preparedSt.setInt(3, contact.getId());
 			preparedSt.executeUpdate();
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_CONTACTS_DAO_UPDATE, ex);
+			LOG.error(ERROR_IN_CONTACTS_DAO_UPDATE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
 		}
@@ -92,7 +98,7 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 			preparedSt.setInt(1, id);
 			preparedSt.executeUpdate();
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_CONTACTS_DAO_DELETE, ex);
+			LOG.error(ERROR_IN_CONTACTS_DAO_DELETE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
 		}
@@ -101,6 +107,7 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 	@Override
 	public int create(Contacts contact) {
 		Connection connection = ConnectionPool.getInstance().getConnect();
+		ResultSet result = null;
 		int id = 0;
 		try (PreparedStatement prepareSt = connection.prepareStatement(CREATE_CONTACT,
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -108,14 +115,15 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 			prepareSt.setString(2, contact.getEmail());
 			prepareSt.setInt(3, contact.getUserId());
 			prepareSt.executeUpdate();
-			ResultSet resultSet = prepareSt.getGeneratedKeys();
-			while (resultSet.next()) {
-				id = resultSet.getInt(0);
+			result = prepareSt.getGeneratedKeys();
+			while (result.next()) {
+				id = result.getInt(0);
 			}
 		} catch (SQLException ex) {
-
+			LOG.error(ERROR_IN_CONTACTS_DAO_CREATE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 		return id;
 	}
@@ -130,10 +138,12 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 			result = prepareSt.executeQuery();
 			while (result.next()) {
 				infoByEmail = buildContacts(result);
-
 			}
 		} catch (SQLException ex) {
-
+			LOG.error(ERROR_IN_CONTACTS_DAO_INFO_BY_EMAIL, ex);
+		} finally {
+			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 
 		return infoByEmail;

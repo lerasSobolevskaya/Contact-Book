@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import by.sobol.contact.book.project.dao.UserDao;
@@ -16,7 +17,7 @@ import by.sobol.contact.book.project.domain.User;
 
 public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 
-//	static final Logger LOG = Logger.getLogger(UserDaoMySqlImpl.class);
+	static final Logger LOG = Logger.getLogger(UserDaoMySqlImpl.class);
 
 	@Override
 	public List<User> getList() {
@@ -29,7 +30,7 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 				users.add(buildUser(result));
 			}
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_USER_DAO_GET_LIST, ex);
+			LOG.error(ERROR_IN_USER_DAO_GET_LIST, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
 			closeResultSet(result);
@@ -49,9 +50,10 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 				user = buildUser(result);
 			}
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_USER_DAO_READ, ex);
+			LOG.error(ERROR_IN_USER_DAO_READ, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 		return user;
 	}
@@ -64,10 +66,9 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 			preparedSt.setString(2, user.getSurname());
 			preparedSt.setString(3, user.getPatronymic());
 			preparedSt.setInt(4, user.getId());
-			// prepareSt.setInt(2, user.getContactId());
 			preparedSt.executeUpdate();
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_USER_DAO_UPDATE, ex);
+			LOG.error(ERROR_IN_USER_DAO_UPDATE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
 		}
@@ -80,7 +81,7 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 			preparedSt.setInt(1, id);
 			preparedSt.executeUpdate();
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_USER_DAO_DELETE, ex);
+			LOG.error(ERROR_IN_USER_DAO_DELETE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
 		}
@@ -99,11 +100,41 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 				user = getUserForAuthorization(result);
 			}
 		} catch (SQLException ex) {
-//			LOG.error(ERROR_IN_USER_DAO_CHECK_USER);
+			LOG.error(ERROR_IN_USER_DAO_CHECK_USER, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
 		}
 		return user;
+
+	}
+
+	@Override
+	public int create(User user) {
+		int id = 0;
+		ResultSet result = null;
+		Connection connection = ConnectionPool.getInstance().getConnect();
+		try (PreparedStatement prepareSt = connection.prepareStatement(CREATE_USER,
+				PreparedStatement.RETURN_GENERATED_KEYS)) {
+			prepareSt.setString(1, user.getName());
+			prepareSt.setString(2, user.getSurname());
+			prepareSt.setString(3, user.getRole());
+			prepareSt.setString(4, user.getLogin());
+			prepareSt.setString(5, user.getPassword());
+			prepareSt.setString(6, user.getPatronymic());
+			prepareSt.executeUpdate();
+			result = prepareSt.getGeneratedKeys();
+			while (result.next()) {
+				id = result.getInt(1);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ERROR_IN_USER_DAO_CREATE, ex);
+			closeResultSet(result);
+		} finally {
+			ConnectionPool.getInstance().disconnect(connection);
+			closeResultSet(result);
+		}
+		return id;
 
 	}
 
@@ -132,29 +163,4 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 		return user;
 	}
 
-	@Override
-	public int create(User user) {
-		int id = 0;
-		Connection connection = ConnectionPool.getInstance().getConnect();
-		try (PreparedStatement prepareSt = connection.prepareStatement(CREATE_USER,
-				PreparedStatement.RETURN_GENERATED_KEYS)) {
-			prepareSt.setString(1, user.getName());
-			prepareSt.setString(2, user.getSurname());
-			prepareSt.setString(3, user.getRole());
-			prepareSt.setString(4, user.getLogin());
-			prepareSt.setString(5, user.getPassword());
-			prepareSt.setString(6, user.getPatronymic());
-			prepareSt.executeUpdate();
-			ResultSet resultSet = prepareSt.getGeneratedKeys();
-			while (resultSet.next()) {
-				id = resultSet.getInt(1);
-			}
-		} catch (SQLException ex) {
-
-		} finally {
-			ConnectionPool.getInstance().disconnect(connection);
-		}
-		return id;
-
-	}
 }

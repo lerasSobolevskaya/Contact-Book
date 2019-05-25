@@ -55,6 +55,6 @@ public class WebControllerConstantPool {
 	public static final String INVALID_CONTACT_PHONE_NUM = "invalid_phone_number";
 	public static final String CONTACT_PHONE_NUM_DONT_EXIST = "phone_number_dont_exist";
 	
-	
+	public static final String ERROR_IN_MAIN_SERVLET = "Error in processRequest(request, response) method in MainServlet.class";
 
 }
