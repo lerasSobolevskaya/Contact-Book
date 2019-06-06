@@ -17,9 +17,7 @@ public interface ContactsService {
 	void deleteContact(int id);
 
 	Contacts getInfoByPhoneNumber(String contactPhoneNum);
-	
+
 	Contacts getInfoByEmail(String email);
-	
-//	Contacts getEmail(String email);
 
 }

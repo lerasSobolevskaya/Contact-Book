@@ -9,7 +9,8 @@ public class PreparingAddContactsImpl implements BaseAction{
 	
 	@Override
 	public String chooseAction(HttpServletRequest request) {
-		return PAGE_FORM_ADD_CONTACTS_JSP;
+//		return PAGE_FORM_ADD_CONTACTS_JSP;
+		return "/jsp/testCreate.jsp";
 	}
 
 

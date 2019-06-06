@@ -105,25 +105,46 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 	}
 
 	@Override
-	public int create(Contacts contact) {
+	public int create(Contacts entity) {
 		Connection connection = ConnectionPool.getInstance().getConnect();
-		ResultSet result = null;
 		int id = 0;
-		try (PreparedStatement prepareSt = connection.prepareStatement(CREATE_CONTACT,
-				PreparedStatement.RETURN_GENERATED_KEYS)) {
-			prepareSt.setString(1, contact.getPhone());
-			prepareSt.setString(2, contact.getEmail());
-			prepareSt.setInt(3, contact.getUserId());
-			prepareSt.executeUpdate();
-			result = prepareSt.getGeneratedKeys();
-			while (result.next()) {
-				id = result.getInt(0);
+		ResultSet rs = null;
+		try {
+			connection.setAutoCommit(false);
+			try (PreparedStatement userPrepSt = connection.prepareStatement(CREATE_USER,
+					Statement.RETURN_GENERATED_KEYS);
+					PreparedStatement contactsPrepSt = connection.prepareStatement(CREATE_CONTACT,
+							Statement.RETURN_GENERATED_KEYS)) {
+				userPrepSt.setString(1, entity.getUser().getName());
+				userPrepSt.setString(2, entity.getUser().getSurname());
+				userPrepSt.setString(3, entity.getUser().getRole());
+				userPrepSt.setString(4, entity.getUser().getLogin());
+				userPrepSt.setString(5, entity.getUser().getPassword());
+				userPrepSt.setString(6, entity.getUser().getPatronymic());
+				userPrepSt.executeUpdate();
+				rs = userPrepSt.getGeneratedKeys();
+				if (rs.next()) {
+					entity.getUser().setId(rs.getInt(1));
+				}
+				contactsPrepSt.setString(1, entity.getPhone());
+				contactsPrepSt.setString(2, entity.getEmail());
+				contactsPrepSt.setInt(3, entity.getUser().getId());
+				contactsPrepSt.executeUpdate();
+				if (rs.next()) {
+					id = rs.getInt(1);
+				}
+				connection.commit();
+			} catch (SQLException ex) {
+				connection.rollback();
+				LOG.error(ERROR_IN_CONTACTS_DAO_CREATE, ex);
+			} finally {
+				connection.setAutoCommit(true);
 			}
 		} catch (SQLException ex) {
 			LOG.error(ERROR_IN_CONTACTS_DAO_CREATE, ex);
 		} finally {
 			ConnectionPool.getInstance().disconnect(connection);
-			closeResultSet(result);
+			closeResultSet(rs);
 		}
 		return id;
 	}
@@ -157,4 +178,5 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		contacts.setUserId(result.getInt(USER_ID));
 		return contacts;
 	}
+
 }

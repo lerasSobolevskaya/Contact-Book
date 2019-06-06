@@ -4,5 +4,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface BaseAction {
 
-	 String chooseAction(HttpServletRequest  request);
+	String chooseAction(HttpServletRequest request);
 }

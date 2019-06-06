@@ -26,15 +26,16 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 		Map<String, String> userParams = getRequestUserParams(request);
 
 		if (validateUserInputData(userParams, request)) {
-			User user = buildUser(userParams, request);
+//			User user = buildUser(userParams, request);
 
-			int newUser = userService.addNewUser(user);
+//			int newUser = userService.addNewUser(user);
+Contacts contacts = buildContact(contactsParams, buildUser(userParams, request), request);
+contactsService.addNewContact(contacts);
+//			if (validateContactInputData(contactsParams, request)) {
+//				Contacts contacts = buildContact(contactsParams, request);
 
-			if (validateContactInputData(contactsParams, request)) {
-				Contacts contacts = buildContact(contactsParams, request);
-
-				contacts.setUserId(newUser);
-				contactsService.addNewContact(contacts);
+//				contacts.setUserId(newUser);
+//				contactsService.addNewContact(contacts);
 
 				List<Contacts> listContacts = contactsService.getAllContacts();
 				request.setAttribute(ATTRIBUTE_LIST_CONTACTS, listContacts);
@@ -42,7 +43,7 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 				request.setAttribute(ATTRIBUTE_MAP_USERS, mapUsers);
 
 				return PAGE_LIST_CONTACTS_JSP;
-			}
+//			}
 		}
 		return PAGE_FORM_ADD_CONTACTS_JSP;
 
@@ -56,10 +57,11 @@ public class AddNewContactsImpl extends ActionAssistant implements BaseAction {
 		return user;
 	}
 
-	private Contacts buildContact(Map<String, String> contactsParams, HttpServletRequest request) {
+	private Contacts buildContact(Map<String, String> contactsParams, User user, HttpServletRequest request) {
 		Contacts contacts = new Contacts();
 		contacts.setPhone(contactsParams.get(PARAM_CONTACT_PHONE));
 		contacts.setEmail(contactsParams.get(PARAM_CONTACT_EMAIL));
+		contacts.setUser(user);
 		return contacts;
 	}
 }
