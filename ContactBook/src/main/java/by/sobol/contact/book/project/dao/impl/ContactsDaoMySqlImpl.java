@@ -14,6 +14,7 @@ import by.sobol.contact.book.project.dao.ContactsDao;
 import by.sobol.contact.book.project.dao.pool.ConnectionPool;
 import by.sobol.contact.book.project.dao.util.AbstractDaoMySQL;
 import by.sobol.contact.book.project.domain.Contacts;
+import by.sobol.contact.book.project.domain.User;
 
 public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDao {
 
@@ -175,7 +176,8 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		contacts.setId(result.getInt(CONTACT_ID));
 		contacts.setEmail(result.getString(CONTACT_EMAIL));
 		contacts.setPhone(result.getString(CONTACT_PHONE));
-		contacts.setUserId(result.getInt(USER_ID));
+//		contacts.setUserId(result.getInt(USER_ID));
+		contacts.setUser(new User(result.getInt(USER_ID)));
 		return contacts;
 	}
 

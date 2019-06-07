@@ -34,7 +34,8 @@ public class ActionAssistant {
 	protected static Map<Integer, User> getUsersForContacts(List<Contacts> listContacts) {
 		Map<Integer, User> contactsUsersMap = new HashMap<>();
 		for (Contacts contacts : listContacts) {
-			int userId = contacts.getUserId();
+//			int userId = contacts.getUserId();
+			int userId = contacts.getUser().getId();
 			User user = userService.getUserById(userId);
 			contactsUsersMap.put(contacts.getId(), user);
 		}

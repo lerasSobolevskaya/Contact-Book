@@ -27,8 +27,10 @@ public class DeleteContactsImpl extends ActionAssistant implements BaseAction {
 	@Override
 	public String chooseAction(HttpServletRequest request) {
 		Contacts contacts  = new Contacts();
+		User user = new User();
 		int id = formatInt(request.getParameter(PARAM_USER_ID));
-		contacts.setUserId(id);
+		user.setId(id);
+		contacts.setUser(user);
 		userService.deleteUser(id);
 
 		List<Contacts> listContacts = contactsService.getAllContacts();

@@ -9,15 +9,8 @@ public class Contacts extends Entity {
 	private String phone;
 	private String email;
 	private User user;
-	private int userId;
+//	private int userId;
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 
 	public Contacts(String phone, String email, User user) {
 		this.phone = phone;
@@ -31,6 +24,14 @@ public class Contacts extends Entity {
 	public Contacts(int id) {
 		super(id);
 	}
+
+//	public int getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(int userId) {
+//		this.userId = userId;
+//	}
 
 	public String getPhone() {
 		return phone;
@@ -63,7 +64,6 @@ public class Contacts extends Entity {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + userId;
 		return result;
 	}
 
@@ -91,14 +91,12 @@ public class Contacts extends Entity {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
-		if (userId != other.userId)
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Contacts [phone=" + phone + ", email=" + email + ", user=" + user + ", userId=" + userId + "]";
+		return "Contacts [phone=" + phone + ", email=" + email + ", user=" + user + "]";
 	}
 
 }

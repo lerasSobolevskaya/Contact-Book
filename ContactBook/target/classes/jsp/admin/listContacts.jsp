@@ -8,12 +8,6 @@
 <link
 	href='${pageContext.request.contextPath}/resources/styles/css/custom.css'
 	rel="stylesheet" type="text/css" />
-<!-- <link -->
-<%-- 	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css' --%>
-<!-- 	rel="stylesheet" type="text/css" /> -->
-<!-- <link -->
-<%-- 	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css' --%>
-<!-- 	rel="stylesheet" type="text/css" /> -->
 <title>Список контактов</title>
 </head>
 <body>
@@ -51,7 +45,7 @@
 		</form>
 		<form action="MainServlet" method="get" class="form-horizontal">
 			<input type="hidden" name="command" value="deleteContacts"> <input
-				type="hidden" name="user_id" value="${contact.userId}"> <input
+				type="hidden" name="user_id" value="${contact.getUser().getId()}"> <input
 				type="submit" value="Удалить контакт" class="btn btn-default">
 		</form>
 	</c:forEach>

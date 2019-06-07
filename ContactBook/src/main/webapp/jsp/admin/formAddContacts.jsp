@@ -17,9 +17,6 @@
 <link
 	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel="stylesheet" type="text/css" />
-<!-- <link -->
-<%-- 	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css' --%>
-<!-- 	rel="stylesheet" type="text/css" /> -->
 <body>
 	<div class="container">
 
