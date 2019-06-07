@@ -57,7 +57,6 @@ public class ContactsServiceImplTests {
 	public void updateContactInfoTest() {
 		contactsService.updateContactInfo(contact);
 		verify(contactsService, times(1)).updateContactInfo(contact);
-		;
 	}
 
 }

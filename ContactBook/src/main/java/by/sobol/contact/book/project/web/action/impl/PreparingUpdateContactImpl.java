@@ -26,7 +26,6 @@ public class PreparingUpdateContactImpl extends ActionAssistant implements BaseA
 	
 		Contacts contact = contactsService.getContactById(contactId);
 		request.setAttribute(ATTRIBUTE_CONTACTS, contact);
-//		User user = userService.getUserById(contact.getUserId());
 		User user = userService.getUserById(contact.getUser().getId());
 		request.setAttribute(ATTRIBUTE_USER, user);
 		
