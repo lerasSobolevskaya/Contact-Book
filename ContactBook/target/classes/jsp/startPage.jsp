@@ -12,9 +12,6 @@
 <link
 	href='${pageContext.request.contextPath}/resources/styles/css/bootstrap.min.css'
 	rel="stylesheet" type="text/css" />
-<!-- <link -->
-<%-- 	href='${pageContext.request.contextPath}/resources/styles/fonts/fonts-awesome.min.css' --%>
-<!-- 	rel="stylesheet" type="text/css" /> -->
 <title>Контактная книга</title>
 </head>
 <body>
@@ -68,7 +65,12 @@
 							id="form_email" type="email" name="email" class="form-control">
 						<c:if test="${not empty invalid_email}">
 							<small class="form-text text-danger"><c:out
-									value="${invalid_email}" /></small>
+									value="${invalid_email}" /> </small>
+						</c:if>
+						<c:if test="${not empty email_address_dont_exist}">
+							<small class="form-text text-danger"> <c:out
+									value="${email_address_dont_exist}" />
+							</small>
 						</c:if>
 					</div>
 					<div class="form-group">
