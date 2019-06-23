@@ -13,8 +13,10 @@ public interface UserService {
 	void updateInfoUser(User user);
 
 	void deleteUser(int id);
-	
+
 	User authorization(String login, String password);
 
 	int addNewUser(User user);
+
+	int createUserTest(User user);
 }

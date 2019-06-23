@@ -105,6 +105,7 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		}
 	}
 
+
 	@Override
 	public int create(Contacts entity) {
 		Connection connection = ConnectionPool.getInstance().getConnect();
@@ -181,4 +182,5 @@ public class ContactsDaoMySqlImpl extends AbstractDaoMySQL implements ContactsDa
 		return contacts;
 	}
 
+	
 }

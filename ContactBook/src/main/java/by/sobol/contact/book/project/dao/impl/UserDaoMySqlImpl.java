@@ -163,4 +163,37 @@ public class UserDaoMySqlImpl extends AbstractDaoMySQL implements UserDao {
 		return user;
 	}
 
+	@Override
+	public int createTestUser(User user) {
+		int id = 0;
+		Connection connection = ConnectionPool.getInstance().getConnect();
+		try {
+			connection.setAutoCommit(false);
+			try (PreparedStatement statement = connection.prepareStatement(CREATE_USER,
+					Statement.RETURN_GENERATED_KEYS)) {
+				statement.setString(1, user.getName());
+				statement.setString(2, user.getSurname());
+				statement.setString(3, user.getRole());
+				statement.setString(4, user.getLogin());
+				statement.setString(5, user.getPassword());
+				statement.setString(6, user.getPatronymic());
+				ResultSet resultSet = statement.getGeneratedKeys();
+				if (resultSet.next()) {
+					id = resultSet.getInt(1);
+				}
+				connection.commit();
+
+			} catch (SQLException ex) {
+
+				connection.rollback();
+			} finally {
+				connection.setAutoCommit(true);
+			}
+		} catch (SQLException ex) {
+
+		} finally {
+			ConnectionPool.getInstance().disconnect(connection);
+		}
+		return id;
+	}
 }

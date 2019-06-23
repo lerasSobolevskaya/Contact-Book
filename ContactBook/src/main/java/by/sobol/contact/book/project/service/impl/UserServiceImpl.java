@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public int createUserTest(User user) {
+		return userDao.createTestUser(user);
+	}
+
 }

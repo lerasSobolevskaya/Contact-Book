@@ -35,7 +35,7 @@
 					<div class="messages"></div>
 
 					<div class="controls">
-						<input type="hidden" name="user_id" value="${user.getId()}">
+						<input type="hidden" name="user_id" value="${user_id}">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">

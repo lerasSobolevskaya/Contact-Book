@@ -46,4 +46,5 @@ public class ContactsServiceImpl implements ContactsService {
 		return contactsDao.getInfoByEmail(email);
 	}
 
+
 }
